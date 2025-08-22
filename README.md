@@ -1,100 +1,173 @@
-Project Citadel: A Zero-Knowledge Password Manager
+<div align="center">
 
-Project Citadel is a privacy-first, zero-knowledge password manager designed for security, transparency, and user control. It is built on the principle that your data is yours alone and should be accessible only by you.
+  # Project Citadel
+  
+  **A zero-knowledge, local-first password manager engineered for security, transparency, and user privacy.**
+  
+</div>
 
-This project prioritizes a small, auditable core and a clear, documented cryptographic design. It begins as a powerful command-line tool with a roadmap to expand into a full suite of cross-platform applications.
+<div align="center">
 
+![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Status](https://img.shields.io/badge/status-alpha-orange.svg)
+![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 
-Core Principles
-Citadel is built on a foundation of four key principles: 
-1. Zero-Knowledge: Your data is encrypted and decrypted entirely on your device. The server (for optional syncing) only ever stores encrypted blobs of data and has no ability to access your master password or your secrets.
-2. Local-First: The application works perfectly offline. Your encrypted vault is a file that lives on your device, giving you complete control. Syncing is an optional feature, not a requirement. 
-3. Auditable & Transparent: The entire project is open-source. We believe that transparency is essential for trust. The cryptographic design and vault format are clearly documented, allowing for independent review and verification.
-4.  Secure by Design: We use modern, peer-reviewed cryptographic algorithms and a robust key hierarchy to protect your data against both online and offline attacks.
+</div>
 
+---
 
-Current Status
-This project is currently in the alpha stage of development. The primary focus is on stabilizing the core cryptographic library and the Python-based Command-Line Interface (CLI). While the security design is robust, it should be considered experimental until a formal security audit is completed.
+## Table of Contents
 
-Features
-- Secure Vault Format: A clearly specified and versioned binary format for your encrypted data.
-- Strong Key Derivation: Uses Argon2id to protect your master password against brute-force attacks.
-- Modern Encryption: Employs XChaCha20-Poly1305 for authenticated encryption of all vault and item data.
-- Per-Item Keys: Each entry in your vault is encrypted with its own unique key, providing better data isolation (envelope encryption).
-- Metadata Protection: Critical metadata, such as item titles, URLs, and timestamps, are encrypted to prevent leaking sensitive information.
-- Powerful CLI: A full-featured command-line interface for all vault operations.
+- [Overview](#overview)
+- [Core Principles](#core-principles)
+- [Project Status](#project-status)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Project Roadmap](#project-roadmap)
+- [Contributing](#contributing)
+- [Security Policy](#security-policy)
+- [License](#license)
 
-Planned Features
-- Optional E2EE Sync: A zero-knowledge server for syncing your encrypted vault across devices.
-- Advanced Multi-Factor Authentication (MFA): Including TOTP and an innovative device-to-device approval system.
-- Cross-Platform GUI: Desktop, mobile, and browser extension clients.
+## Overview
 
+Project Citadel is an open-source, zero-knowledge password manager designed on the principle of user data sovereignty. It functions as a local-first command-line utility with a development roadmap that includes a full suite of cross-platform applications and an optional, end-to-end encrypted synchronization service.
 
-Getting Started
-(This section will be updated as the project matures)
+## Core Principles
 
-Currently, the project is available as a Python-based CLI.
+The architecture of Citadel is founded on four key principles:
 
-Prerequisites:
-- Python 3.9+
+* **Zero-Knowledge:** All cryptographic operations (encryption and decryption) are performed exclusively on the client-side. The synchronization server, if utilized, only stores opaque encrypted blobs and has no access to the master password or the vault's contents.
+* **Local-First:** The application is designed to be fully functional offline. The encrypted vault is a local file on the user's device, ensuring complete user control and data ownership.
+* **Auditable & Transparent:** As an open-source project, the entire codebase is available for public review. The cryptographic design and vault format specifications are thoroughly documented to facilitate independent analysis and verification.
+* **Secure by Design:** The project employs modern, peer-reviewed cryptographic primitives, including Argon2id and XChaCha20-Poly1305, alongside a robust key hierarchy to mitigate a wide range of online and offline attack vectors.
 
-Installation:
-# Clone the repository
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+---
 
-# Install dependencies
-pip install -r requirements.txt
+## ⚠️ Project Status
 
+This project is currently in the **alpha stage**. The immediate development focus is on stabilizing the core cryptographic library and the Python-based Command-Line Interface (CLI).
 
-Basic Usage
-Here are a few examples of how to use the citadel CLI.
+> **Disclaimer:** The security design is robust, but the implementation has not yet undergone a formal third-party security audit. Usage in production environments is not recommended at this stage.
 
-1. Initialize a new vault:
-python citadel.py init --vault ./my_vault.db
-# You will be prompted to create a secure master password.
+---
 
-2. Add a new password:
-python citadel.py add --vault ./my_vault.db --title "Gmail" --username "user@example.com" --generate
-# This will unlock the vault and add a new entry with a securely generated password.
+## Features
 
-3. List all items in the vault:
-python citadel.py list --vault ./my_vault.db
+### Current Features
 
-4. Show the details of an entry:
-python citadel.py show <item_uuid> --vault ./my_vault.db
+* **Secure Vault Format:** A clearly specified and versioned binary format for storing encrypted data.
+* **Strong Key Derivation:** Utilizes **Argon2id** for master password hashing to provide significant resistance against brute-force attacks.
+* **Authenticated Encryption:** Employs **XChaCha20-Poly1305** for authenticated encryption of all vault and item data, ensuring both confidentiality and integrity.
+* **Envelope Encryption:** Each entry within the vault is encrypted with a unique key, providing strong data isolation.
+* **Metadata Protection:** Critical metadata, including item titles, URLs, and timestamps, are encrypted to prevent information leakage.
+* **Command-Line Interface:** A comprehensive CLI for all vault management operations.
 
-5. Copy a password to the clipboard:
-(The clipboard will be automatically cleared after 20 seconds)
-python citadel.py copy <item_uuid> --field password --vault ./my_vault.db
+### Planned Features
 
+* Optional End-to-End Encrypted Sync Server
+* Multi-Factor Authentication (TOTP, Device-to-Device Approval)
+* Cross-Platform GUI Applications (Desktop, Mobile)
+* Browser Extension with Secure Autofill Capabilities
 
-Roadmap
-Our vision for Project Citadel is ambitious. We plan to follow a phased development approach:
+---
 
-Phase 1 (Current):
-- Stable Python CLI prototype.
-- Fully functional core cryptographic library.
-- Comprehensive documentation for architecture and specifications.
+## Getting Started
 
-Phase 2:
-- GUI desktop application (using a cross-platform framework like Tauri).
-- Initial sync mechanism (e.g., file-based sync via cloud providers).
-- Implementation of TOTP-based MFA.
+### Prerequisites
 
-Phase 3:
-- Dedicated zero-knowledge sync server.
-- Mobile applications (iOS & Android).
-- Browser extension with secure autofill.
-- Implementation of device-based MFA.
-- Formal third-party security audit.
+* Python 3.9+
+* Git
 
+### Installation Procedures
 
-Contributing
-We welcome contributions from the community! Whether it's reporting a bug, suggesting a feature, or submitting code, your help is valued. Please read our CONTRIBUTING.md to get started.
+1.  **Clone the remote repository:**
+    ```sh
+    git clone [https://github.com/your-username/your-repo.git](https://github.com/your-username/your-repo.git)
+    cd your-repo
+    ```
 
-For security-related inquiries or to report a vulnerability, please refer to our SECURITY.md policy.
+2.  **Install dependencies:**
+    It is standard practice to use a virtual environment for dependency management.
+    ```sh
+    # Create and activate a virtual environment
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use: venv\Scripts\activate
 
+    # Install required packages from the requirements file
+    pip install -r requirements.txt
+    ```
 
-License
-Project Citadel is licensed under the MIT License.
+---
+
+## Usage
+
+The following examples demonstrate the CLI's functionality.
+
+1.  **Initialize a new vault:**
+    Creates a new encrypted vault file and prompts for a master password.
+    ```sh
+    python citadel.py init --vault ./my_vault.db
+    ```
+
+2.  **Add a new entry with a generated password:**
+    Adds a new record to the vault and securely generates a password for it.
+    ```sh
+    python citadel.py add --vault ./my_vault.db --title "Gmail" --username "user@example.com" --generate
+    ```
+
+3.  **List all items in the vault:**
+    Displays the UUID and title for all entries.
+    ```sh
+    python citadel.py list --vault ./my_vault.db
+    ```
+
+4.  **Show the details of an entry:**
+    Provide the item's UUID to retrieve its full details.
+    ```sh
+    python citadel.py show <item_uuid> --vault ./my_vault.db
+    ```
+
+5.  **Copy a password to the clipboard:**
+    Copies the password field of the specified entry to the system clipboard. The clipboard is automatically cleared after 20 seconds.
+    ```sh
+    python citadel.py copy <item_uuid> --field password --vault ./my_vault.db
+    ```
+
+---
+
+## Project Roadmap
+
+Development is planned in the following phases:
+
+#### Phase 1 (Current)
+- [x] Functional Python CLI prototype
+- [x] Core cryptographic library implementation
+- [ ] Comprehensive architectural and specification documentation
+
+#### Phase 2
+- [ ] Cross-platform GUI desktop application (e.g., Tauri)
+- [ ] Initial file-based synchronization mechanism
+- [ ] Implementation of TOTP-based MFA
+
+#### Phase 3
+- [ ] Dedicated zero-knowledge synchronization server
+- [ ] Native mobile applications for iOS and Android
+- [ ] Browser extension with secure autofill
+- [ ] Device-to-device based MFA
+- [ ] Formal third-party security audit
+
+---
+
+## Contributing
+
+Contributions to the project are welcome. Please refer to the **[CONTRIBUTING.md](CONTRIBUTING.md)** file for guidelines on how to submit bug reports, feature requests, and code contributions.
+
+## Security Policy
+
+For information on how to report security vulnerabilities, please see our **[SECURITY.md](SECURITY.md)** policy.
+
+## License
+
+This project is licensed under the terms of the **[MIT License](LICENSE)**.
