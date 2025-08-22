@@ -1,4 +1,5 @@
 Project Citadel: A Zero-Knowledge Password Manager
+
 Project Citadel is a privacy-first, zero-knowledge password manager designed for security, transparency, and user control. It is built on the principle that your data is yours alone and should be accessible only by you.
 
 This project prioritizes a small, auditable core and a clear, documented cryptographic design. It begins as a powerful command-line tool with a roadmap to expand into a full suite of cross-platform applications.
