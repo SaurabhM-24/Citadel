@@ -64,18 +64,18 @@ The following diagram illustrates the process of decrypting a single item from t
 
 ```mermaid
 graph TD
-    A[User enters Master Password] --> B{Argon2id KDF};
-    C[Salt from Vault Header] --> B;
-    B --> D[Master Key (MK) in memory];
-    E[Encrypted Vault Key (VK_wrapped)] --> F{AEAD Decrypt};
+    A["User enters Master Password"] --> B{"Argon2id KDF"};
+    C["Salt from Vault Header"] --> B;
+    B --> D["Master Key (MK) in memory"];
+    E["Encrypted Vault Key (VK_wrapped)"] --> F{"AEAD Decrypt"};
     D --> F;
-    F --> G[Vault Key (VK) in memory];
-    H[Encrypted Item Key (IK_wrapped)] --> I{AEAD Decrypt};
+    F --> G["Vault Key (VK) in memory"];
+    H["Encrypted Item Key (IK_wrapped)"] --> I{"AEAD Decrypt"};
     G --> I;
-    I --> J[Item Key (IK) in memory];
-    K[Encrypted Item Payload] --> L{AEAD Decrypt};
+    I --> J["Item Key (IK) in memory"];
+    K["Encrypted Item Payload"] --> L{"AEAD Decrypt"};
     J --> L;
-    L --> M[Plaintext Item Data];
+    L --> M["Plaintext Item Data"];
 ```
 
 This flow ensures that the **Master Key** is only used to decrypt a single key (the **VK**), and the **Vault Key** is only used to decrypt the much smaller Item Keys, adhering to the principle of least privilege.
